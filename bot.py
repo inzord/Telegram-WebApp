@@ -15,12 +15,16 @@ dp = Dispatcher(storage=storage)
 @dp.message()
 async def handle_birth_date(message: types.Message):
     username = message.from_user.username or "guest"
-    keyboard = types.InlineKeyboardMarkup(inline_keyboard=[
-        [types.InlineKeyboardButton(text="Перейти в WebApp",
-                                    url=f"{settings.FASTAPI_BASE_URL}/page_for/{username}")]
-    ])
-    await message.answer("Нажмите на кнопку ниже, чтобы перейти в WebApp и узнать важную информацию по этому поводу:",
-                         reply_markup=keyboard)
+    keyboard = types.InlineKeyboardMarkup(inline_keyboard=[[
+        types.InlineKeyboardButton(
+            text="Перейти в WebApp",
+            url=f"{settings.FASTAPI_BASE_URL}/page_for/{username}"
+        )
+    ]])
+    await message.answer(
+        "Нажмите на кнопку ниже, чтобы перейти в WebApp и узнать важную информацию по этому поводу:",
+        reply_markup=keyboard
+    )
 
 
 async def main():
